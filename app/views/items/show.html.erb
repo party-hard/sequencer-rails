@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>UID:</strong>
+  <%= @item.uid %>
+</p>
+
+<p>
+  <strong>User_ID:</strong>
+  <%= @item.user_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @item.title %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @item.track ? "track" : "pattern" %>
+</p>
+
+<p>
+  <strong>Data:</strong>
+  <%= @item.data %>
+</p>
+
+<p>
+  <strong>Shared:</strong>
+  <%= @item.shared %>
+</p>
+
+<p>
+  <strong>Likes:</strong>
+  <%= @item.likes %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
