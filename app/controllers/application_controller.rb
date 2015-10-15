@@ -13,9 +13,13 @@ class ApplicationController < ActionController::Base
   end
 
   def login_required(options = nil)
-    current_user ? true : redirect_to(root_url)
+    current_user ? true : not_found
   end
 
-  helper_method :current_user
+  def not_found
+    raise ActiveRecord::RecordNotFound.new('Not Found')
+  end
+
+  helper_method :current_user, :not_found
 
 end
