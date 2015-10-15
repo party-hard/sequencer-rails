@@ -5,7 +5,17 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    #render json: current_user.items.where(track: :true)
+    if (params.has_key? :type)
+      @items = case params[:type]
+         when 'track'
+           current_user.items.where(track: :true)
+         when 'pattern'
+           current_user.items.where(track: :false)
+       end
+    else
+      @items = Item.all
+    end
   end
 
   # GET /items/1
