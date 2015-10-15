@@ -5,16 +5,18 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    #render json: current_user.items.where(track: :true)
-    if (params.has_key? :type)
-      @items = case params[:type]
-         when 'track'
-           current_user.items.where(track: :true)
-         when 'pattern'
-           current_user.items.where(track: :false)
-       end
+    if (params.has_key? :id) && (params[:id] != current_user[:id])
+      @items = User.find(params[:id]).items.where(shared: :true)
     else
-      @items = Item.all
+      @items = current_user.items
+    end
+    if params.has_key? :type
+      @items = case params[:type]
+        when 'track'
+          @items.where(track: :true)
+        when 'pattern'
+          @items.where(track: :false)
+      end
     end
   end
 
@@ -77,8 +79,7 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-      #@item = params[:id].is_integer? ? Item.find(params[:id]) : Item.find_by_uid(params[:id])
-      @item = Item.find(params[:uid])
+      @item = Item.find(params[:id])
     end
 
 
