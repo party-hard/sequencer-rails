@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
       user.name = auth_hash['info']['name']
       user.location = get_social_location_for user.provider, auth_hash['info']['location']
       user.image_url = auth_hash['info']['image']
-      user.url = get_social_url_for user.provider, auth_hash['info']['urls']
+      user.url = get_social_url_for user.provider, auth_hash['info']['urls'] || ""
+      user.email = auth_hash['info']['email'] || ""
       user.save!
       user
     end
