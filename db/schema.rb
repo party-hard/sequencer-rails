@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20151011215706) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "items", force: :cascade do |t|
+  create_table "items", id: false, force: :cascade do |t|
     t.string   "uid",        null: false
     t.string   "user_id",    null: false
     t.string   "title"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20151011215706) do
   add_index "items", ["uid"], name: "index_items_on_uid", unique: true, using: :btree
   add_index "items", ["user_id"], name: "index_items_on_user_id", using: :btree
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: false, force: :cascade do |t|
     t.string   "provider",   null: false
     t.string   "uid",        null: false
     t.string   "name"
@@ -45,6 +45,6 @@ ActiveRecord::Schema.define(version: 20151011215706) do
 
   add_index "users", ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
   add_index "users", ["provider"], name: "index_users_on_provider", using: :btree
-  add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
+  add_index "users", ["uid"], name: "index_users_on_uid", unique: true, using: :btree
 
 end

@@ -5,8 +5,8 @@
 <table>
   <thead>
     <tr>
+      <th>Id</th>
       <th>Provider</th>
-      <th>Uid</th>
       <th>Name</th>
       <th>Location</th>
       <th>Image url</th>
@@ -19,8 +19,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
+        <td><%= user.id %></td>
         <td><%= user.provider %></td>
-        <td><%= user.uid %></td>
         <td><%= user.name %></td>
         <td><%= user.location %></td>
         <td><%= user.image_url %></td>

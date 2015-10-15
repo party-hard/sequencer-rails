@@ -25,9 +25,9 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.new(item_params) #Item.new(item_params)
     @item[:uid] = Digest::SHA1.hexdigest("--#{@item.title}--#{Time.current.usec}--")
-    @item[:user_id] = current_user[:uid]
+    #@item[:user_id] = current_user[:uid]
 
     respond_to do |format|
       if @item.save
@@ -67,8 +67,10 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-      @item = params[:id].is_integer? ? Item.find(params[:id]) : Item.find_by_uid(params[:id])
+      #@item = params[:id].is_integer? ? Item.find(params[:id]) : Item.find_by_uid(params[:id])
+      @item = Item.find(params[:uid])
     end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params

@@ -1,4 +1,14 @@
 class User < ActiveRecord::Base
+
+  has_many :items
+
+  self.primary_key = 'uid'
+
+  def to_param
+    uid
+  end
+
+
   class << self
     def from_omniauth(auth_hash)
       user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
