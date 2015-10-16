@@ -14,5 +14,7 @@ Rails.application.routes.draw do
   get '/catalogue', to: 'items#catalogue', defaults: {format: :json}
   get '/library/:id', to: 'items#index', defaults: {format: :json}
   resources :items,  path: :library, defaults: {format: :json}, :except => :show
+
   root to: 'application#index'
+  match '*all', to: 'application#index', via: [:get]
 end
