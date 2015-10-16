@@ -12,4 +12,6 @@
 !/log/.keep
 /tmp
 npm-debug.log
+
+*.swp
 public/*
