@@ -50,7 +50,7 @@ class ApplicationController < ActionController::Base
     if params.has_key? :n
       number = params[:n].to_i
       if (page > 0); page -= 1 end
-      @items = @items[page*number..page*number+number-1]
+      @items = (number != 0) ? @items[page*number..page*number+number-1] : []
     end
   end
 
