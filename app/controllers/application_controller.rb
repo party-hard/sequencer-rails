@@ -46,6 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def less_items
+    @number_of_items = @items.length
     page = params.has_key?(:p) ? params[:p].to_i : 0
     if params.has_key? :n
       number = params[:n].to_i
