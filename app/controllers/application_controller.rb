@@ -14,13 +14,59 @@ class ApplicationController < ActionController::Base
   end
 
   def login_required(options = nil)
-    current_user ? true : not_found
+    current_user ? true : auth_links
   end
 
   def not_found
     raise ActiveRecord::RecordNotFound.new('Not Found')
   end
 
-  helper_method :current_user, :not_found
+  def auth_links
+    @auth_links= {
+      login: [
+        { name: 'Twitter', url: login_path(:twitter) },
+        { name: 'Facebook', url: login_path(:facebook) },
+        { name: 'Google', url: login_path(:google) },
+        { name: 'LinkedIn', url: login_path(:linkedin) }
+      ],
+      logout: logout_path
+    }
+    render status: 404, json: @auth_links
+  end
+
+  def items_by_type
+    if params.has_key? :type
+      @items = case params[:type]
+        when 'track'
+          @items.where(track: :true)
+        when 'pattern'
+          @items.where(track: :false)
+      end
+    end
+  end
+
+  def less_items
+    page = params.has_key?(:p) ? params[:p].to_i : 0
+    if params.has_key? :n
+      number = params[:n].to_i
+      if (page > 0); page -= 1 end
+      @items = @items[page*number..page*number+number-1]
+    end
+  end
+
+  def items_sort
+    if params.has_key? :sort
+      if params.has_key? :order
+        @items = case params[:order]
+          when 'asc', 'a', 'az'
+            @items.sort_by {|i| i[params[:sort]]}
+          when 'desc', 'd', 'za'
+            @items.sort_by {|i| i[params[:sort]]}.reverse
+         end
+      end
+    end
+  end
+
+  helper_method :current_user, :not_found, :auth_links, :items_by_type, :items_sort, :less_items
 
 end

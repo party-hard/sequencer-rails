@@ -11,6 +11,20 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    if @user[:id] != current_user[:id]
+      @items = @user.items.where(shared: :true)
+    else
+      @items = @user.items
+    end
+    items_by_type
+    items_sort
+    less_items
+  end
+
+  def current
+    @user = current_user
+    show
+    render :show
   end
 
   # GET /users/new
@@ -20,10 +34,6 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-  end
-
-  # GET /users/current
-  def current
   end
 
   # POST /users

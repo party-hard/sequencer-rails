@@ -5,20 +5,10 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    if (params.has_key? :id) && (params[:id] != current_user[:id])
-      @items = User.find(params[:id]).items.where(shared: :true)
-    else
-      @items = current_user.items
-    end
-      filter_by_type
-  end
-
-  # GET /catalogue
-  # GET /catalogue.json
-  def catalogue
     @items = Item.where(shared: :true)
-    filter_by_type
-    render :index
+    items_by_type
+    items_sort
+    less_items
   end
 
   # GET /items/1
@@ -87,16 +77,5 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:uid, :user_id, :title, :track, :data, :shared, :likes)
-    end
-
-    def filter_by_type
-      if params.has_key? :type
-        @items = case params[:type]
-          when 'track'
-            @items.where(track: :true)
-          when 'pattern'
-            @items.where(track: :false)
-        end
-      end
     end
 end

@@ -1,1 +1,6 @@
-json.extract! @user, :id, :provider, :name, :location, :image_url, :url, :email, :created_at, :updated_at
+json.user @user, :id, :name, :image_url, :created_at, :updated_at
+json.items @items do |item|
+  json.extract! item, :id, :user_id, :title, :track, :likes, :shared, :created_at, :updated_at
+  json.url item_url(item)
+end
+
