@@ -63,7 +63,9 @@ class ApplicationController < ActionController::Base
             @items.sort_by {|i| i[params[:sort]]}
           when 'desc', 'd', 'za'
             @items.sort_by {|i| i[params[:sort]]}.reverse
-         end
+          end
+      else
+        @items = @items.sort_by {|i| i[params[:sort]]}
       end
     end
   end
