@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
     render file: 'public/index.html'
   end
 
+  def show
+    render template: 'layouts/application', layout: false
+  end
+
   private
 
   def current_user

@@ -1,18 +1,5 @@
 class SessionsController < ApplicationController
 
-  def links
-    @auth_urls= {
-      login: [
-        { name: 'Twitter', url: '/auth/twitter' },
-        { name: 'Facebook', url: '/auth/facebook' },
-        { name: 'Google', url: '/auth/google' },
-        { name: 'LinkedIn', url: '/auth/linkedin' }
-      ],
-      logout: '/logout'
-    }
-    render json: @auth_urls
-  end
-
   def create
     #render text: request.env['omniauth.auth'].to_yaml and return
     begin

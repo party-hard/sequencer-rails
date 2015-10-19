@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   # Auth
   delete '/logout', to: 'sessions#destroy'
+  get '/logout', to: 'sessions#destroy'
   get '/auth/:provider', to: 'sessions#create', as: 'login'
   get '/auth/:provider/callback', to: 'sessions#create', as: 'callback'
   get '/auth/failure', to: 'sessions#auth_failure'
@@ -20,6 +21,6 @@ Rails.application.routes.draw do
   end
 
   root to: 'application#index'
-  match '*all', to: 'application#index', via: [:get]
+  match '*all', to: 'application#show', via: [:get]
 
 end
