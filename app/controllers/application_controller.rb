@@ -32,8 +32,7 @@ class ApplicationController < ActionController::Base
         { name: 'Facebook', url: login_path(:facebook) },
         { name: 'Google', url: login_path(:google) },
         { name: 'LinkedIn', url: login_path(:linkedin) }
-      ],
-      logout: logout_path
+      ]
     }
     render status: 404, json: @auth_links
   end

@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   # Auth
   delete '/logout', to: 'sessions#destroy'
   get '/logout', to: 'sessions#destroy'
+  get '/auth/success', to: 'sessions#auth_success', defaults: {format: :json}
+  get '/auth/failure', to: 'sessions#auth_failure', defaults: {format: :json}
   get '/auth/:provider', to: 'sessions#create', as: 'login'
   get '/auth/:provider/callback', to: 'sessions#create', as: 'callback'
-  get '/auth/failure', to: 'sessions#auth_failure'
 
   # Items
   resources :items, path: :items,  defaults: {format: :json}, except: [:edit, :new]

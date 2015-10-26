@@ -6,22 +6,24 @@ class SessionsController < ApplicationController
     begin
       @user = User.from_omniauth(request.env['omniauth.auth'])
       session[:user_id] = @user.id
-      flash[:success] = "Welcome, #{@user.name}!"
+      redirect_to auth_success_path + "?provider=#{@user.provider}&username=#{@user.name}"
     rescue
-     flash[:warning] = "There was an error while trying to authenticate you..."
+    redirect_to auth_failure_path + "?provider=#{params[:provider]}"
     end
-    redirect_to root_path
   end
 
   def destroy
     if current_user
       session.delete(:user_id)
-      flash[:success] = 'See you!'
     end
-    redirect_to root_path
+    render status: 200, nothing: true
+  end
+
+  def auth_success
+    render status: 200, nothing: true
   end
 
   def auth_failure
-    redirect_to root_path
+    render status: 404, nothing: true
   end
 end
