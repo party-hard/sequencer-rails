@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  protect_from_forgery with: :exception
 
   def create
     #render text: request.env['omniauth.auth'].to_yaml and return
