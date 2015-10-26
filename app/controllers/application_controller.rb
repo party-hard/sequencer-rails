@@ -75,4 +75,17 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :not_found, :auth_links, :items_by_type, :items_sort, :less_items
 
+  after_filter :set_csrf_cookie
+
+  def set_csrf_cookie
+    if protect_against_forgery?
+      cookies['RHCHP-SYMPTOM'] = form_authenticity_token
+    end
+  end
+
+  protected
+
+  def verified_request?
+    super || valid_authenticity_token?(session, request.headers['RHCHP-SYMPTOM'])
+  end
 end
