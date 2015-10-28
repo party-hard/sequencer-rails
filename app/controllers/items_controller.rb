@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, :except => [:show, :index]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
