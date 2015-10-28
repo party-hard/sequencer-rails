@@ -14,6 +14,9 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
+    if request.headers['Accept'] =~ /html/
+      redirect_to "/#/items/#{params[:id]}"
+    end
   end
 
   # GET /items/new

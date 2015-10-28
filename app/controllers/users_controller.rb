@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login_required
+  before_filter :login_required, except: :show :index
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    if request.headers['Accept'] =~ /html/
+      redirect_to root_url + "/#/users/#{params[:id]}"
+    end
     if @user[:id] != current_user[:id]
       @items = @user.items.where(shared: :true)
     else
