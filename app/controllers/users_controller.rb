@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :login_required, except: :show :index
+  before_filter :login_required, :except => [:show, :index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
