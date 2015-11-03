@@ -2,6 +2,7 @@ namespace :webpack do
   task :build do
     on roles(:all) do
       execute "cd #{release_path}/sequencer-react && npm run prod-rails > #{release_path}/log/webpack.log"
+      execute "cd #{release_path}/public && ln -s ../sequencer-react/src/images"
     end
   end
 end

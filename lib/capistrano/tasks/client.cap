@@ -4,6 +4,7 @@ namespace :deploy do
       on roles(:all) do
         run_locally do
           execute "cd ./sequencer-react && npm run build > ../log/webpack.log"
+          execute "cp -rf sequencer-react/src/images sequencer-react/dist/"
           execute "cd sequencer-react/dist/ && tar -zcvf ../../tmp/public.tar.gz ."
           execute "rm -rf ./sequencer-react/dist"
         end
