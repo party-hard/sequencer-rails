@@ -1,0 +1,19 @@
+namespace :deploy do
+  desc 'Deploy Client Only'
+    task :client do
+      on roles(:all) do
+        run_locally do
+          execute "cd ./sequencer-react && npm run build > ../log/webpack.log"
+          execute "cd sequencer-react/dist/ && tar -zcvf ../../tmp/public.tar.gz ."
+          execute "rm -rf ./sequencer-react/dist"
+        end
+        upload! "tmp/public.tar.gz", "#{current_path}/tmp/public.tar.gz"
+        run_locally do
+          execute "rm tmp/public.tar.gz"
+        end
+        execute "rm -rf #{current_path}/public && mkdir #{current_path}/public"
+        execute "cd #{current_path}/public && tar -zxvf #{current_path}/tmp/public.tar.gz"
+        execute "rm #{current_path}/tmp/public.tar.gz"
+      end
+    end
+end

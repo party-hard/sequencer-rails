@@ -28,3 +28,4 @@ after 'bundler:install', 'npm:install'
 after 'npm:install', 'webpack:build'
 
 after 'deploy:publishing', 'unicorn:reload'
+after 'deploy:client', 'unicorn:reload'
