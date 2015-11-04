@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   # Users
   get 'users/current', to: 'users#current', defaults: {format: :json}
-  resources :users, defaults: {format: :json}, only: [:show]
+  resources :users, defaults: {format: :json}, only: [:show, :index]
 
   # Debug-devepopment views
   if Rails.env.development?
