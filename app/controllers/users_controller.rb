@@ -12,7 +12,8 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     if request.headers['Accept'] =~ /html/
-      redirect_to root_url + "/#/users/#{params[:id]}"
+      redirect_to root_url + "#/users/#{@user[:id]}"
+      return false
     end
     if @user[:id] != current_user[:id]
       @items = @user.items.where(shared: :true)
@@ -22,12 +23,14 @@ class UsersController < ApplicationController
     items_by_type
     items_sort
     less_items
+    true
   end
 
   def current
     @user = current_user
-    show
-    render :show
+    if show
+      render :show
+    end
   end
 
   # GET /users/new
