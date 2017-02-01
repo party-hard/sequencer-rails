@@ -1,7 +1,7 @@
 env = ENV['RAILS_ENV'] || 'development'
 
 timeout 60
-worker_processes env == 'production' ? 10 : 1
+worker_processes env == 'production' ? 4 : 1
 
 listen File.join(File.expand_path('../../../../shared', __FILE__), 'tmp/sockets/unicorn.socket'), backlog: 64
 pid 'tmp/pids/unicorn.pid'
